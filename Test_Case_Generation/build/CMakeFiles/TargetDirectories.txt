@@ -1,0 +1,3 @@
+/home/pratheek/CD_LAB/Pattern_Extration/Test_Case_Generation/build/CMakeFiles/openmp-test-gen.dir
+/home/pratheek/CD_LAB/Pattern_Extration/Test_Case_Generation/build/CMakeFiles/edit_cache.dir
+/home/pratheek/CD_LAB/Pattern_Extration/Test_Case_Generation/build/CMakeFiles/rebuild_cache.dir

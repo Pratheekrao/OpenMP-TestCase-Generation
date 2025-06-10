@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/openmp-test-gen.dir/src/openmp-test-gen.cpp.o" -o openmp-test-gen  -lcurl -lsqlite3 -lstdc++fs 

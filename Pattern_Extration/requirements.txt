@@ -1,0 +1,9 @@
+libclang>=16.0.0
+clang>=14.0.0
+pathlib
+dataclasses
+enum34
+typing
+requests
+PyGithub
+clast>=0.3.0
