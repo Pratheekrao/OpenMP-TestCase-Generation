@@ -1,45 +1,43 @@
 #!/bin/bash
 
-# Setup script for OpenMP Test Generator
+# OpenMP Test Generator Environment Setup
+echo "Setting up OpenMP Test Generator environment..."
 
-echo "Setting up OpenMP Test Generator..."
+# Load .env file if it exists
+if [ -f .env ]; then
+    echo "Loading environment variables from .env file..."
+    source .env
+fi
 
-# Check if running on supported OS
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    echo "Detected Linux system"
-    # Install dependencies for Ubuntu/Debian
-    if command -v apt-get &> /dev/null; then
-        sudo apt update
-        sudo apt install -y build-essential cmake git llvm-14-dev libclang-14-dev clang-14 libcurl4-openssl-dev libsqlite3-dev pkg-config nlohmann-json3-dev
-    # Install dependencies for CentOS/RHEL
-    elif command -v yum &> /dev/null; then
-        sudo yum groupinstall -y "Development Tools"
-        sudo yum install -y cmake git llvm-devel clang-devel libcurl-devel sqlite-devel pkgconfig
-    fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "Detected macOS system"
-    # Install dependencies via Homebrew
-    if ! command -v brew &> /dev/null; then
-        echo "Installing Homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-    brew install llvm cmake curl sqlite3 nlohmann-json pkg-config
+# Set project root
+export PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+echo "Project root: $PROJECT_ROOT"
+
+# API Keys (check if already set)
+if [ -z "$GROQ_API_KEY" ]; then
+    echo "⚠️  GROQ_API_KEY not set. Please set it in .env file or export it manually."
 else
-    echo "Unsupported operating system: $OSTYPE"
-    exit 1
+    echo "✓ GROQ_API_KEY is set"
 fi
 
-echo "Dependencies installed successfully!"
-
-# Set up environment variables
-echo "Setting up environment variables..."
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    echo 'export LLVM_DIR="/usr/lib/llvm-14"' >> ~/.bashrc
-    echo 'export PATH="/usr/lib/llvm-14/bin:$PATH"' >> ~/.bashrc
-    echo 'export LD_LIBRARY_PATH="/usr/lib/llvm-14/lib:$LD_LIBRARY_PATH"' >> ~/.bashrc
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    echo 'export LLVM_DIR="/opt/homebrew/opt/llvm"' >> ~/.zshrc
-    echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo "ℹ️  GITHUB_TOKEN not set (optional, but recommended for higher API rate limits)"
+else
+    echo "✓ GITHUB_TOKEN is set"
 fi
 
-echo "Setup complete! Please restart your terminal or run 'source ~/.bashrc' (Linux) or 'source ~/.zshrc' (macOS)"
+# Create necessary directories
+mkdir -p "$PROJECT_ROOT/outputs"
+mkdir -p "$PROJECT_ROOT/build"
+
+echo ""
+echo "Environment setup complete!"
+echo ""
+echo "Available commands:"
+echo "  Build project:     cd build && cmake .. && make"
+echo "  Run tool:          ./build/openmp-test-gen --help"
+echo "  Clean build:       rm -rf build/*"
+echo ""
+echo "Example usage:"
+echo "  ./build/openmp-test-gen --pr 67890 --stage codegen --num-tests 2"
+echo ""

@@ -10,6 +10,11 @@ struct sqlite3;
 
 namespace openmp_test_gen {
 
+struct APIResponse {
+    std::string data;
+    static size_t WriteCallback(void* contents, size_t size, size_t nmemb, APIResponse* response);
+};
+
 struct PRInfo {
     int number;
     std::string title;
@@ -17,11 +22,6 @@ struct PRInfo {
     std::string diff;
     std::vector<std::string> modifiedFiles;
     std::string specSection;
-};
-
-struct APIResponse {
-    std::string data;
-    static size_t WriteCallback(void* contents, size_t size, size_t nmemb, APIResponse* response);
 };
 
 class OpenMPTestGenerator {
@@ -39,17 +39,15 @@ public:
     PRInfo fetchPRInfo(int prNumber);
     std::vector<std::string> querySimilarPatterns(const std::string& stage, int limit = 5);
     std::string generatePrompt(const PRInfo& prInfo, const std::vector<std::string>& patterns, 
-                              const std::string& stage);
+                              const std::string& stage, int testNumber);
     std::string callGroqAPI(const std::string& prompt);
-    bool generateTestSkeleton(int prNumber, const std::string& stage, 
-                             const std::string& outputFile = "");
+    bool createOutputDirectory();
+    bool generateMultipleTestSkeletons(int prNumber, const std::string& stage, int numTests);
 
 private:
     // Helper methods
     std::vector<std::string> extractModifiedFiles(const std::string& diff);
     std::string extractSpecSection(const std::string& body);
-    std::vector<std::string> extractOpenMPKeywords(const PRInfo& prInfo);
-    bool initializeDatabase(const std::string& dbPath);
 };
 
 } // namespace openmp_test_gen
