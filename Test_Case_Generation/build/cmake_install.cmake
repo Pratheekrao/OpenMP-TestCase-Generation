@@ -1,4 +1,4 @@
-# Install script for directory: /home/pratheek/CD_LAB/Pattern_Extration/Test_Case_Generation
+# Install script for directory: /home/pratheek/CD_LAB/Test_Case_Generation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/pratheek/CD_LAB/Pattern_Extration/Test_Case_Generation/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/pratheek/CD_LAB/Test_Case_Generation/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

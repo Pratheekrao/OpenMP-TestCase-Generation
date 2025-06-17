@@ -1,5 +1,5 @@
 CMakeFiles/openmp-test-gen.dir/src/openmp-test-gen.cpp.o: \
- /home/pratheek/CD_LAB/Pattern_Extration/Test_Case_Generation/src/openmp-test-gen.cpp \
+ /home/pratheek/CD_LAB/Test_Case_Generation/src/openmp-test-gen.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/12/iostream \
  /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \

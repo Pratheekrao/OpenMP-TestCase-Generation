@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/pratheek/CD_LAB/Pattern_Extration/Test_Case_Generation/include
+CXX_INCLUDES = -I/home/pratheek/CD_LAB/Test_Case_Generation/include
 
 CXX_FLAGS = -std=gnu++17
 

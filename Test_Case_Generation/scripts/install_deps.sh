@@ -41,7 +41,7 @@ install_debian_deps() {
         wget \
         curl
     
-    # Required libraries for the project
+    # Required libraries for the project (no LLVM)
     sudo apt install -y \
         libcurl4-openssl-dev \
         libsqlite3-dev \
@@ -50,6 +50,11 @@ install_debian_deps() {
         libedit-dev \
         zlib1g-dev \
         libzstd-dev
+    
+    # Optional: Install libclang for pattern extraction (lightweight)
+    sudo apt install -y \
+        libclang-dev \
+        clang
     
     echo "✓ All dependencies installed successfully"
 }
@@ -81,6 +86,9 @@ install_centos_deps() {
     else
         sudo yum install -y nlohmann-json3-devel
     fi
+    
+    # Optional: Install clang for pattern extraction
+    sudo yum install -y clang-devel clang
 }
 
 install_macos_deps() {
@@ -107,8 +115,11 @@ install_macos_deps() {
         fi
     fi
     
-    # Install dependencies
+    # Install dependencies (no LLVM)
     brew install cmake curl sqlite3 nlohmann-json pkg-config
+    
+    # Optional: Install clang for pattern extraction
+    brew install llvm
 }
 
 # Main installation
@@ -132,8 +143,13 @@ echo "=========================================="
 echo "Dependencies installed successfully!"
 echo "=========================================="
 echo ""
+echo "Installed components:"
+echo "  ✓ Build tools (cmake, gcc/g++, git)"
+echo "  ✓ Core libraries (libcurl, sqlite3, nlohmann-json)"
+echo "  ✓ Optional: Basic clang for pattern extraction"
+echo ""
 echo "Next steps:"
-echo "1. Run: source scripts/setup_env.sh"
+echo "1. Run: source scripts/setup.sh"
 echo "2. Set your API keys in .env file"
 echo "3. Build the project: mkdir build && cd build && cmake .. && make"
 echo ""
