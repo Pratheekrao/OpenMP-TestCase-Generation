@@ -31,7 +31,7 @@ An automated Python-based tool designed to extract meaningful patterns from exis
 
 ```bash
 git clone <repository-url>
-cd openmp-pattern-extractor-python
+cd Pattern_Extration
 ```
 
 2. Install required Python packages:
